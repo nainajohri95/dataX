@@ -7,6 +7,7 @@ table_key char(40) as (sha1(table_name)) stored,
 
  -- Source and targets
 source_project varchar(150) not null default 'datamigrationproject-483310',
+source_dataset VARCHAR(200) NOT NULL,
 gcs_path varchar(500) not null, -- path in GCS bucket,
 target_path varchar(500) not null,   -- Delta target in Databricks,
 
@@ -19,7 +20,7 @@ bq_to_gcs_status enum('NOT_STARTED','IN_PROGRESS','COMPLETED','FAILED') DEFAULT 
 gcs_to_bronze_status enum('NOT_STARTED','IN_PROGRESS','COMPLETED','FAILED') DEFAULT 'NOT_STARTED',
 
   -- Common timestamps
-last_run_ts datetime null,
+last_run datetime null,
 last_success_ts datetime null,
 error_message text null,
 
@@ -28,5 +29,3 @@ updated_ts datetime null on update current_timestamp,
 
 unique key uk_table_name (table_name)
 );
-
-
